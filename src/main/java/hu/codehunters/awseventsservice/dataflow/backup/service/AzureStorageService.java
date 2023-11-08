@@ -47,7 +47,7 @@ public class AzureStorageService implements EventProcessor {
 
         BlobClient blobClient = blobContainerClient.getBlobClient(fileName);
 
-        blobClient.upload(new ByteArrayInputStream(data), data.length, true);
+        //TODO: upload the file
     }
 
 }
