@@ -71,7 +71,6 @@ class AzureStorageServiceTest {
     }
 
     @Test
-    @Disabled
     void given_event_when_processed_then_must_be_put_on_azure_storage_v2() throws JsonProcessingException {
         // Given
         String eventId = UUID.randomUUID().toString();
@@ -102,12 +101,15 @@ class AzureStorageServiceTest {
         underTest.process(input);
 
         // Then
-        BinaryData binaryData = blobContainerClient.getBlobClient(targetFileName).downloadContent();
+        BinaryData binaryData = blobContainerClient
+                .getBlobClient(targetFileName)
+                .downloadContent();
 
         Assertions.assertNotNull(binaryData);
 
         // Cleanup
-        blobContainerClient.getBlobClient(targetFileName).delete();
+        blobContainerClient.getBlobClient(targetFileName)
+                .delete();
     }
 
 }

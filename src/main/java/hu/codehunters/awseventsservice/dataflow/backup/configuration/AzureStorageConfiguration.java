@@ -22,8 +22,7 @@ public class AzureStorageConfiguration {
     @Bean
     public BlobContainerClient blobContainerClient(BlobServiceClient blobServiceClient,
                                                    @Value("${events-service.flows.backup.storage.container-name}") String containerName) {
-        //TODO
-        return null;
+        return blobServiceClient.getBlobContainerClient(containerName);
     }
 
 }

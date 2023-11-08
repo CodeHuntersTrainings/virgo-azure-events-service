@@ -6,9 +6,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - ???=${PROFILE}
+      - CONFIG_ENV=${PROFILE}
     networks:
-      - ???
+      - backend
 
 networks:
   backend: { }

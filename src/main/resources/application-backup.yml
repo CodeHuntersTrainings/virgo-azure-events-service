@@ -2,5 +2,5 @@ events-service:
   flows:
     backup:
       storage:
-        connection-string: ???
+        connection-string: "DefaultEndpointsProtocol=https;AccountName=codehuntersevents;AccountKey=75vV/tRL+o44S4BMh+OF9u0livcGipDxdgH8qjR1pwMC5YJItwklRVl69/WH88e5441xhLb5xreZ+AStnJ/nhA==;EndpointSuffix=core.windows.net"
         container-name: events

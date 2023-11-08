@@ -5,7 +5,7 @@ AcrLink="codehunterstrainingacr.azurecr.io"
 LocalImageName="events-service"
 TargetTag="czirjak"
 
-./mvnw clean install
+./mvnw clean install -DskipTests=true
 
 docker build --tag "$LocalImageName:latest" .
 

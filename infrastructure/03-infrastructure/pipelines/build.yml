@@ -11,6 +11,10 @@ variables:
   - group: azure_terraform_user
 
 steps:
+  - script: |
+      az login --service-principal -u "$(servicePrincipalId)" -p "$(servicePrincipalPw)" --tenant "$(tenant)"
+      az account set --subscription="$(subscription)"
+    displayName: 'Login With Service Principal'
   - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
     inputs:
       terraformVersion: '1.6.3'
