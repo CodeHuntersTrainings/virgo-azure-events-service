@@ -1,0 +1,32 @@
+trigger: none
+pr: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: azure_terraform_user
+
+steps:
+  - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
+    inputs:
+      terraformVersion: '1.6.3'
+    displayName: 'Install Terraform'
+  - script: |
+      terraform -version
+      terraform -chdir=infrastructure/03-infrastructure init
+    displayName: 'Terraform Init'
+    env:
+      ARM_CLIENT_ID: $(servicePrincipalId)
+      ARM_CLIENT_SECRET: $(servicePrincipalPw)
+      ARM_SUBSCRIPTION_ID: $(subscription)
+      ARM_TENANT_ID: $(tenant)
+  - script: |
+      terraform -version
+      terraform -chdir=infrastructure/03-infrastructure apply -auto-approve -var-file="01-base-04-configuration.tfvars"
+    displayName: 'Terraform Apply'
+    env:
+      ARM_CLIENT_ID: $(servicePrincipalId)
+      ARM_CLIENT_SECRET: $(servicePrincipalPw)
+      ARM_SUBSCRIPTION_ID: $(subscription)
+      ARM_TENANT_ID: $(tenant)

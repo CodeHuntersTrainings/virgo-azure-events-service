@@ -1,1 +1,1 @@
-# virgo-azure-events-service
+# events-service
