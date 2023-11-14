@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-events-service
-  namespace: codehunters
+  namespace: ???
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
@@ -10,14 +10,14 @@ spec:
   rules:
     -  http:
          paths:
-           - path: /events
+           - path: ??? service path ???
              pathType: Prefix
              backend:
                service:
                  name: service-events-service
                  port:
                     number: 8080
-           - path: /actuator/health
+           - path: ??? health path ???
              pathType: Prefix
              backend:
                service:

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: events-service
-  namespace: codehunters
+  namespace: ???
 spec:
   replicas: 1
   selector:
@@ -16,9 +16,9 @@ spec:
       containers:
         - name: events-service
           imagePullPolicy: Always
-          image: codehunterstrainingacr.azurecr.io/events-service:czirjak
+          image: ???
           ports:
-            - containerPort: 8080
+            - containerPort: ???
           env:
             - name: CONFIG_ENV
               value: "backup"
@@ -32,13 +32,13 @@ spec:
           livenessProbe:
             httpGet:
               port: 8080
-              path: /actuator/health
+              path: ???
             initialDelaySeconds: 30
             periodSeconds: 5
             timeoutSeconds: 2
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: ???
               port: 8080
             initialDelaySeconds: 60
             periodSeconds: 3
