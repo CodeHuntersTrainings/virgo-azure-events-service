@@ -6,6 +6,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.codehunters.awseventsservice.dataflow.EventProcessor;
 import hu.codehunters.awseventsservice.service.model.Event;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -21,9 +23,14 @@ public class AzureStorageService implements EventProcessor {
 
     private final ObjectMapper objectMapper;
 
-    public AzureStorageService(BlobContainerClient blobContainerClient, ObjectMapper objectMapper) {
+    private final Counter storedDataCounter;
+
+    public AzureStorageService(BlobContainerClient blobContainerClient,
+                               ObjectMapper objectMapper,
+                               MeterRegistry meterRegistry) {
         this.blobContainerClient = blobContainerClient;
         this.objectMapper = objectMapper;
+        this.storedDataCounter = meterRegistry.counter("events.storedAsBlob");
     }
 
     @Override
@@ -32,6 +39,7 @@ public class AzureStorageService implements EventProcessor {
 
         try {
             saveEvent(event);
+            storedDataCounter.increment();
             log.info("Event {} has been saved", event.getEventId());
 
         } catch (Exception e) {
@@ -47,7 +55,7 @@ public class AzureStorageService implements EventProcessor {
 
         BlobClient blobClient = blobContainerClient.getBlobClient(fileName);
 
-        blobClient.upload(new ByteArrayInputStream(data));
+        blobClient.upload(new ByteArrayInputStream(data), data.length, true);
     }
 
 }

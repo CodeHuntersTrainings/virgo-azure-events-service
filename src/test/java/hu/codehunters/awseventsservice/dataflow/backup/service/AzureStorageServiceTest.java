@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.codehunters.awseventsservice.service.model.Event;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +28,6 @@ class AzureStorageServiceTest {
     private BlobContainerClient blobContainerClient;
 
     @Test
-    @Disabled
     void given_event_when_processed_then_must_be_put_on_azure_storage_v1() throws JsonProcessingException {
         // Given
         String eventId = UUID.randomUUID().toString();
@@ -101,15 +99,12 @@ class AzureStorageServiceTest {
         underTest.process(input);
 
         // Then
-        BinaryData binaryData = blobContainerClient
-                .getBlobClient(targetFileName)
-                .downloadContent();
+        BinaryData binaryData = blobContainerClient.getBlobClient(targetFileName).downloadContent();
 
         Assertions.assertNotNull(binaryData);
 
         // Cleanup
-        blobContainerClient.getBlobClient(targetFileName)
-                .delete();
+        blobContainerClient.getBlobClient(targetFileName).delete();
     }
 
 }

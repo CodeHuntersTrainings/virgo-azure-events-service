@@ -13,13 +13,22 @@ terraform {
 }
 
 provider "azurerm" {
-  features { }
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 }
 
 provider "azuread" {
 
 }
 
-provider "random" {
-
-}
+# provider "helm" {
+#   kubernetes {
+#     host                   = azurerm_kubernetes_cluster.codehunters-aks-cluster[0].kube_config[0].host
+#     client_key             = base64decode(azurerm_kubernetes_cluster.codehunters-aks-cluster[0].kube_config[0].client_key)
+#     client_certificate     = base64decode(azurerm_kubernetes_cluster.codehunters-aks-cluster[0].kube_config[0].client_certificate)
+#     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.codehunters-aks-cluster[0].kube_config[0].cluster_ca_certificate)
+#   }
+# }

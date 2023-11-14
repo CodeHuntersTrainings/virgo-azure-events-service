@@ -1,0 +1,20 @@
+loki:
+  enabled: true
+  isDefault: false
+  persistence:
+    enabled: true
+    storageClassName: default
+    size: 5Gi
+
+promtail:
+  enabled: true
+  pipelineStages:
+    - cri: {}
+    - json:
+      expressions:
+        is_even: is_even
+        level: level
+        version: version
+
+grafana:
+  enabled: true

@@ -32,3 +32,8 @@ variable "monitoring-enabled" {
   type = bool
   default = false
 }
+
+variable "vmss-enabled" {
+  type = bool
+  default = false
+}

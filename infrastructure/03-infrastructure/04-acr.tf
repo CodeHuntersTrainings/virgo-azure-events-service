@@ -16,29 +16,11 @@ resource "azurerm_container_registry" "codehunters-acr" {
   }
 }
 
-resource "azurerm_role_assignment" "acr-role-assigment-01" {
-  count               = var.acr-enabled ? 1 : 0
+resource "azurerm_role_assignment" "acr-role-assigment" {
+  count                            = var.acr-enabled ? 1 : 0
 
   principal_id                     = var.training-users
-  role_definition_name             = "AcrPull"
-  scope                            = azurerm_container_registry.codehunters-acr[0].id
-  skip_service_principal_aad_check = false # FALSE for Users and Groups
-}
-
-resource "azurerm_role_assignment" "acr-role-assigment-02" {
-  count               = var.acr-enabled ? 1 : 0
-
-  principal_id                     = var.training-users
-  role_definition_name             = "AcrPush"
-  scope                            = azurerm_container_registry.codehunters-acr[0].id
-  skip_service_principal_aad_check = false # FALSE for Users and Groups
-}
-
-resource "azurerm_role_assignment" "acr-role-assigment-03" {
-  count               = var.acr-enabled ? 1 : 0
-
-  principal_id                     = var.training-users
-  role_definition_name             = "AcrDelete"
+  role_definition_name             = "Contributor"
   scope                            = azurerm_container_registry.codehunters-acr[0].id
   skip_service_principal_aad_check = false # FALSE for Users and Groups
 }

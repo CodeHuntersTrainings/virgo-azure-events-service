@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  servicename:
+    image: codehunterstrainingacr.azurecr.io/events-service:czirjak
+    ports:
+      - '80:8080'
+
