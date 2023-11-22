@@ -2,5 +2,9 @@ events-service:
   flows:
     backup:
       storage:
-        connection-string: " ??? "
+        connection-string: "DefaultEndpointsProtocol=https;AccountName=codehuntersevents;AccountKey=jqRvFSYTGWj5j2E0foypOeAKx5E4WSc3W300z6IteywxTirR8toj93FZ9AjaNRfS67mkDG/2n0Tl+ASt4+QYAA==;EndpointSuffix=core.windows.net"
         container-name: events
+
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration

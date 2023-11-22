@@ -12,6 +12,14 @@ grafana:
       folder: /tmp/dashboards
       provider:
         foldersFromFilesStructure: true
+  additionalDataSources:
+    - access: proxy
+      isDefault: false
+      name: loki
+      orgId: 1
+      type: loki
+      url: http://loki:3100/
+      version: 1
 
 alertmanager:
   enabled: enabled

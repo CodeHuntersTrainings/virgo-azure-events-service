@@ -1,6 +1,6 @@
 # Create public IP
 resource "azurerm_public_ip" "codehunters-nat-gateway-public-ip" {
-  count               = var.vnet-enabled ? 1 : 0
+  count               = var.vnet-enabled && !var.kubernetes-enabled ? 1 : 0
 
   name                = "codehunters-ngw-public-ip"
   location            = azurerm_resource_group.codehunters-main-resource-group.location
@@ -12,7 +12,7 @@ resource "azurerm_public_ip" "codehunters-nat-gateway-public-ip" {
 
 #Nat Gateway
 resource "azurerm_nat_gateway" "codehunters-nat-gateway" {
-  count                   = var.vnet-enabled ? 1 : 0
+  count                   = var.vnet-enabled && !var.kubernetes-enabled ? 1 : 0
 
   name                    = "codehunters-nat-gateway"
   location                = azurerm_resource_group.codehunters-main-resource-group.location
@@ -24,7 +24,7 @@ resource "azurerm_nat_gateway" "codehunters-nat-gateway" {
 
 # Nat - Public IP Association
 resource "azurerm_nat_gateway_public_ip_association" "public-ip-to-natgw" {
-  count                = var.vnet-enabled ? 1 : 0
+  count                = var.vnet-enabled && !var.kubernetes-enabled ? 1 : 0
 
   nat_gateway_id       = azurerm_nat_gateway.codehunters-nat-gateway[0].id
   public_ip_address_id = azurerm_public_ip.codehunters-nat-gateway-public-ip[0].id
@@ -32,7 +32,7 @@ resource "azurerm_nat_gateway_public_ip_association" "public-ip-to-natgw" {
 
 # NAT - Subnets association
 resource "azurerm_subnet_nat_gateway_association" "private-subnets-to-natgw" {
-  count          = var.vnet-enabled ? 1 : 0
+  count          = var.vnet-enabled && !var.kubernetes-enabled ? 1 : 0
 
   subnet_id      = azurerm_subnet.private-subnet[0].id
   nat_gateway_id = azurerm_nat_gateway.codehunters-nat-gateway[0].id

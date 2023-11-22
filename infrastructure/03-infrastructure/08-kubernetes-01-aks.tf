@@ -9,7 +9,6 @@ resource "azurerm_kubernetes_cluster" "codehunters-aks-cluster" {
   # VMSS
   default_node_pool {
     name            = "codehunters"
-    node_count      = 3
     vm_size         = "Standard_B2s"
     min_count       = 1
     max_count       = 5
@@ -18,10 +17,9 @@ resource "azurerm_kubernetes_cluster" "codehunters-aks-cluster" {
     enable_auto_scaling     = true
     vnet_subnet_id          = azurerm_subnet.private-subnet[0].id
     enable_node_public_ip   = false
-
   }
 
-  identity {
+  identity { # Managed Identity
     type = "SystemAssigned"
   }
 
@@ -34,6 +32,10 @@ resource "azurerm_kubernetes_cluster" "codehunters-aks-cluster" {
     service_cidr      = "10.1.100.0/24"
     dns_service_ip    = "10.1.100.10"
     load_balancer_sku = "standard"
+  }
+
+  key_vault_secrets_provider {
+    secret_rotation_enabled = true
   }
 
 }

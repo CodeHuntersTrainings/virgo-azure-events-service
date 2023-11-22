@@ -44,7 +44,7 @@ public class AzureStorageService implements EventProcessor {
 
         } catch (Exception e) {
             log.error("Saving event {} failed", event, e);
-
+            throw new RuntimeException(e);
         }
     }
 

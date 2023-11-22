@@ -3,7 +3,6 @@
 #
 #   depends_on          = [
 #     azurerm_kubernetes_cluster.codehunters-aks-cluster[0],
-#     helm_release.kube-prometheus
 #   ]
 #
 #   name       = "loki"

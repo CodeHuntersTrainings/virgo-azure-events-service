@@ -1,0 +1,24 @@
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name:  secret-provider-events-service
+  namespace: codehunters
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "true"
+    userAssignedIdentityID: "a6b19459-b1b1-4bc4-95a2-11e479fcc3f2" # Client ID
+    keyvaultName: "codehunterskeyvault"
+    objects:  |
+      array:
+        - |
+          objectName: events-topic-access-key
+          objectType: secret
+    tenantId: "f12402fb-94c0-40db-8a18-6dca573c3b66"
+  secretObjects:
+    - secretName: queue-credentials
+      type: Opaque
+      data:
+        - objectName: events-topic-access-key
+          key: topic-access-key

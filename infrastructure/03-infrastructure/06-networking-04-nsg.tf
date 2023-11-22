@@ -44,7 +44,7 @@ resource "azurerm_network_security_group" "codehunters-private-nsg" {
     destination_address_prefix    = "*"
     destination_port_ranges       = ["22", "80", "443", "8080"]
     source_port_range             = "*"
-    source_address_prefix         = var.vnet-enabled ?  azurerm_subnet.public-subnet[0].address_prefixes[0] : "*"
+    source_address_prefix         = var.kubernetes-enabled ? "*" : azurerm_subnet.public-subnet[0].address_prefixes[0]
   }
 
 }

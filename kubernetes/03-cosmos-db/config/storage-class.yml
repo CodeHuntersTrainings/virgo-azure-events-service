@@ -1,0 +1,24 @@
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name:  secret-provider-events-service
+  namespace: codehunters
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "true"
+    userAssignedIdentityID: " TODO "
+    keyvaultName: "codehunterskeyvault"
+    objects:  |
+      array:
+        - |
+          objectName: cosmosdb-events-connection-string
+          objectType: secret
+    tenantId: "f12402fb-94c0-40db-8a18-6dca573c3b66"
+  secretObjects:
+    - secretName: database-credentials
+      type: Opaque
+      data:
+        - objectName: cosmosdb-events-connection-string
+          key: connection-string

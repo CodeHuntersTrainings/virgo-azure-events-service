@@ -1,0 +1,10 @@
+events-service:
+  flows:
+    collector:
+      queue:
+        topic-endpoint: https://codehunters-events.westeurope-1.eventgrid.azure.net/api/events
+        topic-access-key: ${TOPIC_ACCESS_KEY}
+
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration

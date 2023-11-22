@@ -1,5 +1,6 @@
-resource "azurerm_container_registry" "codehunters-acr" {
-  count               = var.acr-enabled ? 1 : 0
+resource "azurerm_container_registry" "codehunters-premium-acr" {
+  count               = var.acr-enabled && !var.kubernetes-enabled ? 1 : 0
+
   name                = "codehunterstrainingacr"
   resource_group_name = azurerm_resource_group.codehunters-main-resource-group.name
   location            = azurerm_resource_group.codehunters-main-resource-group.location
@@ -16,11 +17,11 @@ resource "azurerm_container_registry" "codehunters-acr" {
   }
 }
 
-resource "azurerm_role_assignment" "acr-role-assigment" {
-  count                            = var.acr-enabled ? 1 : 0
+resource "azurerm_role_assignment" "acr-role-assigment-to-premium-acr" {
+  count                            = var.acr-enabled && !var.kubernetes-enabled ? 1 : 0
 
   principal_id                     = var.training-users
   role_definition_name             = "Contributor"
-  scope                            = azurerm_container_registry.codehunters-acr[0].id
+  scope                            = azurerm_container_registry.codehunters-premium-acr[0].id
   skip_service_principal_aad_check = false # FALSE for Users and Groups
 }
