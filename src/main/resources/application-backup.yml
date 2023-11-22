@@ -2,7 +2,7 @@ events-service:
   flows:
     backup:
       storage:
-        connection-string: "DefaultEndpointsProtocol=https;AccountName=codehuntersevents;AccountKey=jqRvFSYTGWj5j2E0foypOeAKx5E4WSc3W300z6IteywxTirR8toj93FZ9AjaNRfS67mkDG/2n0Tl+ASt4+QYAA==;EndpointSuffix=core.windows.net"
+        connection-string: " ??? "
         container-name: events
 
 spring:

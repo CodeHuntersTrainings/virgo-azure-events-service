@@ -8,7 +8,7 @@ spec:
   parameters:
     usePodIdentity: "false"
     useVMManagedIdentity: "true"
-    userAssignedIdentityID: " TODO "
+    userAssignedIdentityID: " TODO " #TODO: Client ID
     keyvaultName: "codehunterskeyvault"
     objects:  |
       array:
